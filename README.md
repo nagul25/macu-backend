@@ -147,7 +147,7 @@ When `--out` is specified, creates a CSV with columns:
 ```
 macu/
 ├── taxonomy.py         # Load allowed tags from Tags sheet
-├── llm_classifier.py   # Azure OpenAI integration & tag validation
+├── classifier.py       # Azure OpenAI integration & tag validation
 ├── data_loader.py      # Load data and row selection logic
 ├── run_poc.py          # CLI entrypoint
 ├── requirements.txt    # Dependencies

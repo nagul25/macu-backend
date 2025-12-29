@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 
 from taxonomy import load_taxonomy
 from data_loader import load_data, get_rows, parse_row_indices
-from llm_classifier import get_azure_client, classify_summary
+from classifier import get_azure_client, classify_summary
 
 
 def truncate_text(text: str, max_len: int = 100) -> str:
@@ -63,7 +63,9 @@ def write_csv(results: List[Dict], output_path: str) -> None:
     """Write results to CSV file."""
     fieldnames = [
         'row_index',
+        'case_summary',
         'pred_tag_1', 'pred_tag_2', 'pred_tag_3', 'pred_tag_4',
+        'actual_issue_1', 'actual_issue_2', 'actual_issue_3', 'actual_issue_4',
         'needs_review'
     ]
     
@@ -75,15 +77,34 @@ def write_csv(results: List[Dict], output_path: str) -> None:
             tags = r['tags']
             row = {
                 'row_index': r['row_index'],
+                'case_summary': r.get('case_summary', ''),
                 'pred_tag_1': tags[0] if len(tags) > 0 else '',
                 'pred_tag_2': tags[1] if len(tags) > 1 else '',
                 'pred_tag_3': tags[2] if len(tags) > 2 else '',
                 'pred_tag_4': tags[3] if len(tags) > 3 else '',
+                'actual_issue_1': r.get('actual_issue_1', ''),
+                'actual_issue_2': r.get('actual_issue_2', ''),
+                'actual_issue_3': r.get('actual_issue_3', ''),
+                'actual_issue_4': r.get('actual_issue_4', ''),
                 'needs_review': r['needs_review']
             }
             writer.writerow(row)
     
     print(f"\nResults written to: {output_path}")
+
+
+def get_actual_issues(row) -> Dict[str, str]:
+    """Extract actual issue columns from a data row."""
+    import pandas as pd
+    actual_issues = {}
+    for i in range(1, 5):
+        col_name = f'Issue {i}'
+        value = row.get(col_name, '')
+        # Handle NaN values
+        if value is None or pd.isna(value):
+            value = ''
+        actual_issues[f'actual_issue_{i}'] = str(value) if value else ''
+    return actual_issues
 
 
 def cmd_single(args) -> None:
@@ -123,6 +144,9 @@ def cmd_single(args) -> None:
     # Write CSV if requested
     if args.out:
         result['row_index'] = args.row_index
+        result['case_summary'] = str(case_summary) if case_summary else ''
+        # Add actual issues from source data
+        result.update(get_actual_issues(row))
         write_csv([result], args.out)
 
 
@@ -190,6 +214,9 @@ def cmd_batch(args) -> None:
         )
         
         result['row_index'] = idx
+        result['case_summary'] = str(case_summary) if case_summary else ''
+        # Add actual issues from source data
+        result.update(get_actual_issues(row))
         results.append(result)
         
         print_result(idx, case_summary, result)

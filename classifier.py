@@ -1,5 +1,5 @@
 """
-llm_classifier.py - Azure OpenAI integration for classifying case summaries.
+classifier.py - Azure OpenAI integration for classifying case summaries.
 """
 
 import json
