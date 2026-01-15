@@ -8,6 +8,8 @@ from typing import List, Dict, Set, Tuple, Optional
 
 from openai import AzureOpenAI
 
+from terminology_definitions import get_tag_definitions_prompt, get_confusion_guidance
+
 
 def get_azure_client() -> Tuple[AzureOpenAI, str]:
     """
@@ -53,26 +55,32 @@ def build_prompt(case_summary: str, allowed_tags: List[str], top_k: int = 4) -> 
     Returns:
         The prompt string
     """
-    tags_list = "\n".join(f"- {tag}" for tag in allowed_tags)
+    # Get tag definitions from terminology guide
+    tag_definitions = get_tag_definitions_prompt(allowed_tags)
+    confusion_guidance = get_confusion_guidance()
     
-    prompt = f"""You are a customer service issue classifier. Analyze the following case summary and classify it into the most relevant issue tags.
+    prompt = f"""You are a customer service issue classifier for a credit union (MACU). Analyze the following case summary and classify it into the most relevant issue tags.
 
 STRICT RULES:
 1. Return ONLY valid JSON in this exact format: {{"tags": ["tag1", "tag2", ...]}}
-2. Choose ONLY from the allowed tags list below - use exact spelling and case
+2. Choose ONLY from the allowed tags listed below - use exact spelling and case
 3. Return between 0 and {top_k} tags (no more than {top_k})
 4. No duplicate tags
-5. Only include tags that are clearly relevant to the case
+5. Only include tags that are clearly relevant to the case based on the definitions provided
 6. If unsure, return fewer tags rather than guessing
 7. Do NOT include any explanation or text outside the JSON
+8. READ THE TAG DEFINITIONS CAREFULLY - each tag has specific criteria for when to use it
 
-ALLOWED TAGS:
-{tags_list}
+{confusion_guidance}
 
-CASE SUMMARY:
+## TAG DEFINITIONS (Use these to decide which tags apply):
+
+{tag_definitions}
+
+## CASE SUMMARY TO CLASSIFY:
 {case_summary}
 
-Respond with only the JSON object:"""
+Based on the tag definitions above, respond with only the JSON object containing the most appropriate tags:"""
     
     return prompt
 
