@@ -14,6 +14,8 @@ TAG_DEFINITIONS = {
 4. Issues arising due to joint account ownership
 5. Issues arising to opening an account or linking accounts
 6. Issues regarding accessing accounts post transfer of accounts to Sunward
+7. Member cannot access online portal due to moving/relocation (geographic restrictions)
+8. Member no longer a resident in original state and cannot use state-specific portal
 NOTE: Card fraud/stolen cards do NOT qualify as account access issues - a stolen card does not provide access to the member's actual account.""",
 
     "agent behavior": """
@@ -95,7 +97,8 @@ IMPORTANT: Only use when the issue is WITH the CD itself. If member wants a CD-s
 1. Check cannot be deposited or cashed due to check being printed improperly or not having all required information on it, typically the MICR Line
 2. Check was cashed incorrectly, either incorrect amount, in the wrong account, or other
 3. Check cannot be cashed or deposited due to technical issues, improper endorsement or failed identity verification
-4. Check that has been sent is not deposited in a timely manner, inciting fears of the check being lost""",
+4. Check that has been sent is not deposited in a timely manner, inciting fears of the check being lost
+IMPORTANT: This is for CHECK deposits only. Cash deposits with issues should use "balance dispute" (if amount is wrong) and/or "processing error" (if teller counted incorrectly).""",
 
     "check hold": """
 1. Check holds happen frequently, regardless of amount, member longevity, or frequency of deposit
@@ -128,9 +131,11 @@ NOTE: Use when information was NOT communicated or was unclear. If WRONG informa
 2. The lag between a payment issuance and actual payment resulted in late fees being assessed""",
 
     "delivery": """
-1. Financial product (card, check) was lost in delivery or never reached its intended destination
-2. Delivery for financial product (card, check) was extremely slow
-3. Improper delivery type (e.g. standard instead of expedited)""",
+1. Financial product (card, check, title) was lost in delivery or never reached its intended destination
+2. Delivery for financial product (card, check, title) was extremely slow
+3. Improper delivery type (e.g. standard instead of expedited)
+4. Title mailed but never received
+NOTE: Use alongside item-specific tags (e.g., "titles" + "delivery" when title wasn't delivered).""",
 
     "discrimination": """
 1. Member makes a claim that racism, sexism, classism, or other -ism has occurred""",
@@ -139,17 +144,30 @@ NOTE: Use when information was NOT communicated or was unclear. If WRONG informa
 1. An issue with documentation being different than what is required
 2. An issue with documentation being completed or filled out improperly, leading to issues
 3. A member has not received a required form, like tax form, that they are expecting
-4. A member requests documentation from member services regarding their accounts""",
+4. A member requests documentation from member services regarding their accounts
+5. Required documentation preventing account opening (SSA letter for rep payee, etc.)
+6. Member unable to provide required documents for account action
+NOTE: Use alongside specific account type tags (e.g., "rep payee" + "documentation").""",
 
     "duplicate transaction": """
-1. A transaction that has occurred twice or more than twice on a member's account""",
+1. A transaction that has occurred twice or more than twice on a member's account WITH THE SAME AMOUNT
+2. Double payment posted to a loan that needs adjustment
+IMPORTANT:
+- Amounts MUST be the same to be a duplicate
+- Different amounts (e.g., $198.85 and $177.22) are separate transactions, NOT duplicates
+- Third-party charges (Comcast, etc.) with different amounts = use "transaction dispute" instead
+- When double payment needs correction, also add "adjustment" tag""",
 
     "escalation request": """
 1. Member fails to get a resolution to their problem through first line service and so request escalation
 2. Member asks to speak to a supervisor/manager/lead
 3. Call became an escalation call
 4. Member was transferred to escalations/helpdesk
-NOTE: Always include this tag when member explicitly asks to speak to a supervisor/manager or when call is transferred to escalations.""",
+NOTE: 
+- Always include this tag when member EXPLICITLY asks to speak to a supervisor/manager or when call is transferred to escalations
+- Staff internally consulting other teams (fraud, payments) is NOT an escalation request
+- Member disconnecting in frustration is NOT an escalation request
+- Must be member-initiated request for manager/supervisor""",
 
     "fee disclosure": """
 1. Member has a question regarding fees that are linked to an account, not understanding why they were charged or their origin
@@ -178,7 +196,10 @@ NOTE: Focus on the PRIMARY complaint. If member called to make a payment but cou
     "insurance": """
 1. Member is being denied for insurance that was purchased as part of a loan, either auto, ISTL, or other insurance protection
 2. Member was opted into insurance unknowingly or applied for insurance coverage due to poor communication
-3. GAP insurance claim issues""",
+3. GAP insurance claim issues
+4. Issues with loan relief / loan relief plan / debt protection products (these ARE insurance)
+5. Member upset about how loan relief charges were explained or added
+IMPORTANT: "Loan relief" and "debt protection" are insurance products - use this tag, NOT "auto loan" for loan relief issues.""",
 
     "interest dispute": """
 1. Member has a dispute as to interest balances accrued that must be paid
@@ -265,12 +286,16 @@ IMPORTANT:
 2. Member receives a notice or other communication from MACU in error about an issue that does not exist on their account or meant for another Member
 3. Changes are made to an account where the requestor for the change is unknown or where it originated from
 4. Documents processed with incorrect information
+5. Loan booked to wrong account (even if loan was requested, wrong account = processing error)
+6. Cash deposit counted incorrectly by teller
+7. Product (insurance, loan relief) not cancelled when member requested cancellation
 IMPORTANT: 
 - Only use when a HUMAN AGENT processed something incorrectly
 - ATM errors are NOT processing errors (use "atm")
 - IVR/phone system errors are NOT processing errors (use "interactive voice response (IVR)")
 - System working as designed is NOT processing error
-- Don't use if we don't know whether an error occurred""",
+- Don't use if we don't know whether an error occurred
+- If member REQUESTED an action but it was done to WRONG account = processing error, NOT unauthorized action""",
 
     "refinance": """
 1. Member initiates a request to refinance a loan
@@ -291,7 +316,9 @@ NOTE: Use this when member is requesting refund/help with fees, even if overdraf
 1. The member wants to initiate a skip payment
 2. The member is not able to use a skip payment for some reason
 3. The member is confused about how a skip pay works or has concerns about the results of their skip payment
-4. Payment still initializes even after a skip payment is requested or activated""",
+4. Payment still initializes even after a skip payment is requested or activated
+5. Member seeking loan extension due to not making payments (also add "loan payment" in this case)
+NOTE: When member is behind on payments and seeking extension, tag BOTH skip payment AND "loan payment".""",
 
     "stop payment": """
 1. Member calls in because of an issue that arises with a stop payment request or to initiate a stop payment request""",
@@ -301,11 +328,14 @@ NOTE: Use this when member is requesting refund/help with fees, even if overdraf
 2. Member does not receive proper notifications when using the online system
 3. MACU has internal technical issues that affect the member in some way
 4. Member is generally unhappy with the way technology at MACU works or is configured. They find it confusing or difficult to use
+5. SMS/text message system not recognizing member's response (fraud alert texts, verification texts)
+6. System failed to process member's response correctly
 IMPORTANT:
 - System working as designed is NOT a technical issue
 - Loan product not offered is NOT a technical issue
 - IVR issues should use "interactive voice response (IVR)" instead
-- "App" in case notes usually means mobile APP (potential technical issue), not application process""",
+- "App" in case notes usually means mobile APP (potential technical issue), not application process
+- Fraud text alerts where system didn't recognize response = technical issue""",
 
     "titles": """
 1. Issue where a title cannot be released or has not been released
@@ -316,7 +346,13 @@ IMPORTANT:
 1. Member calls in to dispute a transaction, either a credit card payment, a wire transfer/bill pay, account offsets, or other transactions
 2. Member disputing an offset payment that was made from their account
 3. Member disputes any transaction that occurred on their account
-NOTE: Use when member is DISPUTING a transaction. Account offsets per loan agreement terms are disputable transactions.""",
+4. Member upset about claim credit reversal (disputed fraud claim that was denied and provisional credit reversed)
+5. Third-party charges that member wants refunded (even if amounts are different)
+NOTE: 
+- Use when member is DISPUTING a transaction
+- Account offsets per loan agreement terms are disputable transactions
+- "Claim credit reversal" or denied fraud claim = transaction dispute, NOT card fraud
+- Card fraud is for REPORTING fraud, this is for DISPUTING outcomes of claims or transactions""",
 
     "transfers": """
 1. Transfer issues, including transfers from visa debit/credit cards, ODP, or other issues
@@ -327,10 +363,16 @@ NOTE: Use when member is DISPUTING a transaction. Account offsets per loan agree
 NOTE: Transfers are different from payments. If money was transferred to wrong account, use this tag, NOT "payment misapplied".""",
 
     "unauthorized action": """
-1. Any disputed transaction where the member claims that MACU took unilateral action on doing something that was not approved or requested by the member
+1. Any disputed transaction where the member claims that MACU took unilateral action on doing something that was NOT REQUESTED by the member
 2. Account converted without member's knowledge or consent (e.g., share type changed)
 3. Account changes made without proper notification or authorization
-IMPORTANT: Actions permitted by loan agreement terms (like account offsets for past due loans) are NOT unauthorized, even if member is upset about them. BUT account conversions/changes without notification ARE unauthorized.""",
+4. Credit pull done without member's direct authorization (wife authorized but member didn't)
+IMPORTANT: 
+- Actions permitted by loan agreement terms (like account offsets for past due loans) are NOT unauthorized, even if member is upset about them
+- Account conversions/changes without notification ARE unauthorized
+- If member REQUESTED an action but it was done to the WRONG account = "processing error", NOT unauthorized
+- If action was never requested at all = "unauthorized action"
+- Credit pull where member didn't personally authorize = unauthorized action""",
 
     "unresolved complaint": """
 1. A complaint has been pending resolution for long periods of time, spanning days or weeks without resolution requiring multiple call ins and interactions
@@ -349,6 +391,35 @@ IMPORTANT: Only use when a withdrawal ACTUALLY OCCURRED and there was an issue. 
     "zelle": """
 1. Member having issues with Zelle transactions
 2. Member not eligible for or have issues being denied Zelle increases""",
+
+    "account charge off": """
+1. Member is disputing a charge off on their account
+2. Member received notice about a charged off account
+3. Member upset about charge off affecting their credit
+4. Charge off dispute, regardless of whether member claims fraud
+NOTE: If member claims a charge off is fraud, still use "account charge off" as the primary tag (not fraud - general).""",
+
+    "garnishment": """
+1. Member's account has been garnished
+2. Member upset about garnishment on their account
+3. Member not notified about garnishment
+4. Funds taken from account due to court-ordered garnishment
+NOTE: Use when funds are taken from account due to legal garnishment order.""",
+
+    "adjustment": """
+1. Member requesting an adjustment to their account
+2. Payment adjustment is taking longer than expected
+3. Transaction needs to be adjusted/corrected
+4. Member was told incorrect timeframe for adjustment
+5. Double payment posted that needs adjustment
+NOTE: Use when a correction/adjustment needs to be made to fix a transaction or payment issue.""",
+
+    "rep payee": """
+1. Member attempting to open a representative payee account
+2. Issues with rep payee account setup or requirements
+3. SSA letter requirements for rep payee accounts
+4. Problems with representative payee arrangements
+NOTE: Representative payee accounts have specific documentation requirements (SSA letter).""",
 }
 
 
@@ -461,6 +532,76 @@ def get_confusion_guidance() -> str:
 ### Certificate (CD)
 - Only when issue is WITH the CD itself
 - CD-secured loan denied = "loan denial", NOT CD issue
+- If misinformation was given about CDs (rates, limits, interest) = include "certificate (CD)" along with "misinformation given"
+
+### Duplicate Transaction - BE PRECISE
+- ONLY use when the SAME amount is charged multiple times
+- Different amounts = NOT a duplicate (e.g., Comcast charging $198.85 and $177.22 are separate charges, not duplicates)
+- Third-party duplicate charges (not MACU's fault) may still need "transaction dispute" instead
+- When in doubt about different amounts, use "transaction dispute" instead
+
+### Skip Payment / Loan Extension + Loan Payment
+- When member is seeking an extension because they have NOT made payments, tag BOTH the extension issue AND "loan payment"
+- Member behind on payments seeking extension = add "loan payment"
+
+### Overdraft Fee + Refund
+- When member is BOTH upset about overdraft fees AND specifically seeking a refund, tag BOTH "overdraft fee" AND "refund"
+- Just asking about fees = "overdraft fee" only
+- Asking for fees to be waived/refunded = add "refund"
+
+### Fee Disclosure - Already Covers Confusing Fees
+- When fees are confusing or unclear, use "fee disclosure" - do NOT also add "communication issue"
+- "communication issue" is for when information was NOT communicated at all
+- Confusing fee structure or unclear fee explanation = just "fee disclosure"
+
+### Claim Credit Reversal / Disputed Claims
+- "claim credit reversal" or denied fraud claim = "transaction dispute", NOT "card fraud"
+- Card fraud is for REPORTING fraud, not for disputing the outcome of a claim
+- If member is disputing denial of their fraud claim = "transaction dispute"
+
+### Loan Relief / Debt Protection = Insurance
+- "Loan relief", "loan relief plan", "debt protection" = these are INSURANCE products
+- Issues with loan relief charges or cancellation = "insurance", NOT "auto loan"
+- If loan relief should have been cancelled but wasn't = add "processing error"
+
+### Cash Deposit vs Check Deposit
+- "check deposit" is ONLY for checks
+- Cash deposits that have issues = "balance dispute" if amount is wrong
+- Incorrect cash deposit amount by teller = "balance dispute" + "processing error"
+
+### Auto Loan Setup Through Dealer
+- When dealer fails to communicate important loan info (due date, account info) = add "communication issue" AND "auto loan"
+- Missing payment information at loan setup = "communication issue"
+
+### Check Return Causing Interest
+- If a payoff check is returned and causes additional interest = tag BOTH "check return" AND "interest dispute"
+- Don't forget the interest component when check issues cause interest charges
+
+### Escalation Request - Member Must Request
+- ONLY use when MEMBER explicitly asks to speak to supervisor/manager OR is transferred to escalations
+- Staff internally consulting other departments (fraud team, etc.) is NOT an escalation request
+- Member disconnecting in frustration is NOT an escalation request
+
+### Delivery - Items Not Arriving
+- When a title, card, or check never arrives or was lost in delivery = add "delivery"
+- Use alongside the item-specific tag (e.g., "titles" + "delivery")
+
+### Portal Access Due to Relocation
+- Member can't access online portal because they moved/changed state = "account access & security"
+- Geographic restrictions preventing portal access = account access issue
+
+### Double Payment Needing Adjustment
+- Payment posted twice to an account that needs correction = BOTH "duplicate transaction" AND "adjustment"
+- Focus on both the duplication AND the need for correction
+
+### Account Charge Off
+- Use for charge off disputes, NOT "fraud - general"
+- Even if member claims charge off is fraud, primary issue is "account charge off"
+- Often paired with "credit check" when affecting credit report
+
+### Documentation for Account Opening
+- When specific documentation is required to open an account (SSA letter for rep payee, etc.) = add "documentation"
+- Missing required documents preventing account action = "documentation"
 """
 
 

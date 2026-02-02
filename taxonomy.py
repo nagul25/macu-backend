@@ -6,6 +6,16 @@ import pandas as pd
 from typing import Tuple, Dict, List
 
 
+# Additional tags identified from feedback that may not be in the Excel file yet
+# These will be added to the allowed tags list
+SUPPLEMENTAL_TAGS = {
+    "account charge off": "Account Management",
+    "garnishment": "Account Management",
+    "adjustment": "Transaction Issues",
+    "rep payee": "Account Management",
+}
+
+
 def load_taxonomy(
     xlsx_path: str,
     tags_sheet: str = "Tags",
@@ -65,6 +75,15 @@ def load_taxonomy(
                 tag_to_class[tag_str] = str(classification).strip()
             else:
                 tag_to_class[tag_str] = ""
+    
+    # Add supplemental tags that may not be in the Excel file yet
+    for tag, classification in SUPPLEMENTAL_TAGS.items():
+        tag_lower = tag.lower()
+        if tag_lower not in seen_lower:
+            seen_lower.add(tag_lower)
+            allowed_tags.append(tag)
+            lower_to_tag[tag_lower] = tag
+            tag_to_class[tag] = classification
     
     return allowed_tags, lower_to_tag, tag_to_class
 
