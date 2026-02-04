@@ -3,7 +3,8 @@ taxonomy.py - Load and process allowed tags from the Excel Tags sheet.
 """
 
 import pandas as pd
-from typing import Tuple, Dict, List
+from io import BytesIO
+from typing import Tuple, Dict, List, Union
 
 
 # Additional tags identified from feedback that may not be in the Excel file yet
@@ -16,30 +17,17 @@ SUPPLEMENTAL_TAGS = {
 }
 
 
-def load_taxonomy(
-    xlsx_path: str,
-    tags_sheet: str = "Tags",
-    issues_col: str = "Issues",
-    classification_col: str = "Classification"
+def _process_taxonomy_df(
+    df: pd.DataFrame,
+    tags_sheet: str,
+    issues_col: str,
+    classification_col: str
 ) -> Tuple[List[str], Dict[str, str], Dict[str, str]]:
     """
-    Load the taxonomy of allowed tags from the Excel file.
+    Process a taxonomy DataFrame into the required data structures.
     
-    Args:
-        xlsx_path: Path to the Excel file
-        tags_sheet: Name of the sheet containing tags (default: "Tags")
-        issues_col: Column name for issue tags (default: "Issues")
-        classification_col: Column name for classifications (default: "Classification")
-    
-    Returns:
-        Tuple of:
-            - allowed_tags: List of unique tag strings (preserves original order)
-            - lower_to_tag: Dict mapping lowercase tag to original case
-            - tag_to_class: Dict mapping tag to its classification
+    Internal helper function used by both load_taxonomy and load_taxonomy_from_bytes.
     """
-    # Read the tags sheet
-    df = pd.read_excel(xlsx_path, sheet_name=tags_sheet)
-    
     # Validate required columns exist
     if issues_col not in df.columns:
         raise ValueError(f"Column '{issues_col}' not found in sheet '{tags_sheet}'")
@@ -86,6 +74,66 @@ def load_taxonomy(
             tag_to_class[tag] = classification
     
     return allowed_tags, lower_to_tag, tag_to_class
+
+
+def load_taxonomy(
+    xlsx_path: str,
+    tags_sheet: str = "Tags",
+    issues_col: str = "Issues",
+    classification_col: str = "Classification"
+) -> Tuple[List[str], Dict[str, str], Dict[str, str]]:
+    """
+    Load the taxonomy of allowed tags from the Excel file.
+    
+    Args:
+        xlsx_path: Path to the Excel file
+        tags_sheet: Name of the sheet containing tags (default: "Tags")
+        issues_col: Column name for issue tags (default: "Issues")
+        classification_col: Column name for classifications (default: "Classification")
+    
+    Returns:
+        Tuple of:
+            - allowed_tags: List of unique tag strings (preserves original order)
+            - lower_to_tag: Dict mapping lowercase tag to original case
+            - tag_to_class: Dict mapping tag to its classification
+    """
+    # Read the tags sheet
+    df = pd.read_excel(xlsx_path, sheet_name=tags_sheet)
+    return _process_taxonomy_df(df, tags_sheet, issues_col, classification_col)
+
+
+def load_taxonomy_from_bytes(
+    excel_bytes: bytes,
+    tags_sheet: str = "Tags",
+    issues_col: str = "Issues",
+    classification_col: str = "Classification"
+) -> Tuple[List[str], Dict[str, str], Dict[str, str]]:
+    """
+    Load the taxonomy of allowed tags from Excel bytes (for Azure Blob Storage integration).
+    
+    Args:
+        excel_bytes: Excel file contents as bytes
+        tags_sheet: Name of the sheet containing tags (default: "Tags")
+        issues_col: Column name for issue tags (default: "Issues")
+        classification_col: Column name for classifications (default: "Classification")
+    
+    Returns:
+        Tuple of:
+            - allowed_tags: List of unique tag strings (preserves original order)
+            - lower_to_tag: Dict mapping lowercase tag to original case
+            - tag_to_class: Dict mapping tag to its classification
+    
+    Raises:
+        ValueError: If sheet not found or taxonomy cannot be loaded
+    """
+    try:
+        df = pd.read_excel(BytesIO(excel_bytes), sheet_name=tags_sheet)
+        return _process_taxonomy_df(df, tags_sheet, issues_col, classification_col)
+    except ValueError:
+        # Re-raise ValueError from _process_taxonomy_df
+        raise
+    except Exception as e:
+        raise ValueError(f"Failed to load taxonomy from sheet '{tags_sheet}': {e}")
 
 
 if __name__ == "__main__":

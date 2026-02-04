@@ -3,7 +3,8 @@ data_loader.py - Load and select rows from the Excel Data sheet.
 """
 
 import pandas as pd
-from typing import List, Optional
+from io import BytesIO
+from typing import List, Optional, Union
 
 
 def load_data(xlsx_path: str, data_sheet: str = "Data") -> pd.DataFrame:
@@ -19,6 +20,30 @@ def load_data(xlsx_path: str, data_sheet: str = "Data") -> pd.DataFrame:
     """
     df = pd.read_excel(xlsx_path, sheet_name=data_sheet)
     return df
+
+
+def load_data_from_bytes(
+    excel_bytes: bytes,
+    data_sheet: str = "Data"
+) -> pd.DataFrame:
+    """
+    Load data from Excel bytes (for Azure Blob Storage integration).
+    
+    Args:
+        excel_bytes: Excel file contents as bytes
+        data_sheet: Name of the data sheet (default: "Data")
+    
+    Returns:
+        DataFrame with the data
+    
+    Raises:
+        ValueError: If sheet not found or data cannot be loaded
+    """
+    try:
+        df = pd.read_excel(BytesIO(excel_bytes), sheet_name=data_sheet)
+        return df
+    except Exception as e:
+        raise ValueError(f"Failed to load data from sheet '{data_sheet}': {e}")
 
 
 def get_rows(
