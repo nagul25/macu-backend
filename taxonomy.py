@@ -14,6 +14,8 @@ SUPPLEMENTAL_TAGS = {
     "garnishment": "Account Management",
     "adjustment": "Transaction Issues",
     "rep payee": "Account Management",
+    "account offset": "Transaction Issues",
+    "overdraft protection": "Account Management",
 }
 
 

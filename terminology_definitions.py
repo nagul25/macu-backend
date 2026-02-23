@@ -16,23 +16,33 @@ TAG_DEFINITIONS = {
 6. Issues regarding accessing accounts post transfer of accounts to Sunward
 7. Member cannot access online portal due to moving/relocation (geographic restrictions)
 8. Member no longer a resident in original state and cannot use state-specific portal
-NOTE: Card fraud/stolen cards do NOT qualify as account access issues - a stolen card does not provide access to the member's actual account.""",
+NOTE: Card fraud/stolen cards do NOT qualify as account access issues - a stolen card does not provide access to the member's actual account.
+IMPORTANT:
+- If member's card doesn't work after an account conversion, the primary issue is "card block" (not account access) — unless they also can't access the account itself
+- If member is calling about being yelled at by an agent, that is "agent behavior", NOT account access
+- Only use this tag when the member has trouble accessing THEIR ACCOUNT (online, in-branch, locked out), not when a specific product (card, loan) has an issue""",
 
     "agent behavior": """
 1. Any member complaint that includes a lack of proper decorum from the agent (rudeness, unprofessional conduct, inappropriate comments)
 CRITICAL RULES:
-- ONLY use when the AGENT behaves improperly (agent was rude, agent hung up inappropriately, agent was unprofessional)
+- ONLY use when the AGENT behaves improperly in DEMEANOR (agent was rude, agent hung up inappropriately, agent was unprofessional, agent gossiped)
 - If MEMBER is rude, abusive, or uses profanity, that is NOT agent behavior - the agent did nothing wrong
 - If case mentions "member was using profanity" or "member said [insult]", do NOT tag agent behavior
 - If agent hung up because MEMBER was abusive, that is NOT agent behavior (agent was right to disconnect)
-- Look for clear agent misconduct, not member complaints about service quality""",
+- Look for clear agent misconduct in CONDUCT/DEMEANOR, not member complaints about service quality
+- If agent shared member's personal information without authorization, that is "unauthorized action", NOT "agent behavior" (the issue is the unauthorized disclosure, not rudeness)
+- Agent making a processing mistake is "processing error", not "agent behavior" — behavior is about demeanor/conduct, not errors""",
 
     "application": """
 1. Any issue that arises during the APPLICATION PROCESS itself, including difficulty completing an application, undue burden placed on member during the application process, and/or incorrect information given during the application process
+2. Application sent to wrong address or wrong person
+3. Incorrect information entered on an application by agent (wrong email, wrong address, etc.)
 IMPORTANT: 
 - "App" in case notes usually means MOBILE APP, not application process
 - A loan being denied is NOT an application issue unless the application PROCESS itself was problematic
-- Only use when there's an actual problem with HOW the application was submitted or processed""",
+- Only use when there's an actual problem with HOW the application was submitted or processed
+- If application was sent to wrong address, also add "delivery"
+- If agent entered wrong info on the application, also add "processing error\"""",
 
     "atm": """
 1. Issues where ATM dispenses incorrect amount to the receiver
@@ -69,23 +79,33 @@ NOTE: When member calls because balances shown on mobile app don't match stateme
     "card block": """
 1. Card stops working or payment is declined due to system blocks, freezes, authorization failures, or unknown reasons
 2. Card is declined when used but there is NO physical defect with the card
-NOTE: Use when the card itself is physically fine but won't work due to blocks or system issues. If the chip is malfunctioning or card is worn, use "card quality" instead.""",
+3. Card not working after account conversion or account change
+NOTE: Use when the card itself is physically fine but won't work due to blocks or system issues. If the chip is malfunctioning or card is worn, use "card quality" instead.
+IMPORTANT: 
+- If member says card is "not working" with no clear physical defect mentioned, default to "card block"
+- If card doesn't work specifically at ATMs, tag BOTH "card block" AND "atm"
+- If card doesn't work after account conversion, the issue is "card block" (not account access)""",
 
     "card fraud": """
 1. Issues being flagged as fraud, requiring a call in to resolve
 2. Actual fraudulent transactions on the card, requiring member to call in to resolve
-3. Fraudulent transaction disputes are declined
-4. Any fraudulent charges appearing on credit/debit card
-5. Member upset about potential fraudulent transactions posting to account
-6. Disputes about fraud on card transactions
-NOTE: Use this for ANY fraud involving credit/debit CARD transactions. If the fraud involves card transactions or pending card charges, use "card fraud", NOT "fraud - general".""",
+3. Any fraudulent charges appearing on credit/debit card
+4. Member upset about potential fraudulent transactions posting to account
+NOTE: Use this for REPORTING fraud involving credit/debit CARD transactions.
+IMPORTANT:
+- Use when member is REPORTING or IDENTIFYING card fraud
+- If member wants to DISPUTE a transaction or is upset about the OUTCOME of a fraud claim (claim denied, can't dispute pending txns), use "transaction dispute" instead
+- "card fraud" = reporting/identifying fraud; "transaction dispute" = disputing a transaction or claim outcome
+- If member wants to dispute pending transactions they believe are fraud but can't yet, the issue is "transaction dispute" (the dispute process), NOT "card fraud"
+- If the fraud involves card transactions or pending card charges, use "card fraud", NOT "fraud - general\"""",
 
     "card quality": """
 1. Card quality is poor, chip malfunctions, swipe functionality is spotty (physical card defects)
 2. Members are constantly requiring cards to be reissued or reprinted due to physical defects
 3. Card that wears down and needs replacement
 4. Chip not working, strip having issues
-NOTE: Use when there are PHYSICAL defects with the card. If card is blocked/declined but NOT physically defective, use "card block".""",
+NOTE: Use when there are PHYSICAL defects with the card. If card is blocked/declined but NOT physically defective, use "card block".
+IMPORTANT: If the card is "not working" but NO specific physical defect is mentioned (chip, strip, tap, wear), default to "card block". Only use "card quality" when physical defect is explicitly described (e.g., "chip quit working", "tap stopped working", "card worn out").""",
 
     "certificate (CD)": """
 1. Communication around withdrawal penalties or other fees regarding the closing or transfer of a CD is poor
@@ -98,7 +118,12 @@ IMPORTANT: Only use when the issue is WITH the CD itself. If member wants a CD-s
 2. Check was cashed incorrectly, either incorrect amount, in the wrong account, or other
 3. Check cannot be cashed or deposited due to technical issues, improper endorsement or failed identity verification
 4. Check that has been sent is not deposited in a timely manner, inciting fears of the check being lost
-IMPORTANT: This is for CHECK deposits only. Cash deposits with issues should use "balance dispute" (if amount is wrong) and/or "processing error" (if teller counted incorrectly).""",
+5. A check deposit was processed with incorrect amounts (e.g., extra money taken from customer's account during deposit)
+6. A check deposit triggered account restrictions, fraud flags, or access issues
+IMPORTANT: 
+- This is for CHECK deposits only. Cash deposits with issues should use "balance dispute" (if amount is wrong) and/or "processing error" (if teller counted incorrectly)
+- A check deposit is NOT a payment — member depositing a check they received is "check deposit", NOT "payment misapplied"
+- If a check deposit triggers fraud restrictions or account access issues, include "check deposit" as the root cause tag alongside other relevant tags""",
 
     "check hold": """
 1. Check holds happen frequently, regardless of amount, member longevity, or frequency of deposit
@@ -135,7 +160,13 @@ NOTE: Use when information was NOT communicated or was unclear. If WRONG informa
 2. Delivery for financial product (card, check, title) was extremely slow
 3. Improper delivery type (e.g. standard instead of expedited)
 4. Title mailed but never received
-NOTE: Use alongside item-specific tags (e.g., "titles" + "delivery" when title wasn't delivered).""",
+5. Item (application, document, card) sent to the wrong address
+NOTE: Use alongside item-specific tags (e.g., "titles" + "delivery" when title wasn't delivered).
+IMPORTANT:
+- Only use when a physical item was ACTUALLY SENT/MAILED and there was a delivery problem
+- If a title was never printed or never mailed (e.g., lien release issue), that is NOT a delivery issue — use "titles" only
+- Sending an application or document to the wrong address IS a delivery issue
+- The item must have been in transit or intended to be delivered for this tag to apply""",
 
     "discrimination": """
 1. Member makes a claim that racism, sexism, classism, or other -ism has occurred""",
@@ -147,7 +178,10 @@ NOTE: Use alongside item-specific tags (e.g., "titles" + "delivery" when title w
 4. A member requests documentation from member services regarding their accounts
 5. Required documentation preventing account opening (SSA letter for rep payee, etc.)
 6. Member unable to provide required documents for account action
-NOTE: Use alongside specific account type tags (e.g., "rep payee" + "documentation").""",
+7. Member's statement or year-end document displays information incorrectly or in a misleading way (e.g., fees showing that were already refunded, incorrect totals)
+8. Member wants a statement or document corrected/updated
+NOTE: Use alongside specific account type tags (e.g., "rep payee" + "documentation").
+IMPORTANT: If the issue is about what a STATEMENT or DOCUMENT shows (even if fees are involved), use "documentation" — the problem is with the document, not the fee itself.""",
 
     "duplicate transaction": """
 1. A transaction that has occurred twice or more than twice on a member's account WITH THE SAME AMOUNT
@@ -179,7 +213,11 @@ NOTE:
 
     "fraud - general": """
 1. A catch-all for fraud complaints OUTSIDE of credit card fraud, including identity theft, account takeover, check fraud, wire fraud, etc.
-IMPORTANT: If the fraud involves CARD transactions (credit/debit card charges, pending card transactions), use "card fraud" instead. Only use "fraud - general" for non-card fraud like identity theft, check fraud, wire fraud, account takeover without card involvement.""",
+2. Member is attempting to commit fraud themselves (e.g., falsely claiming money was stolen when evidence shows otherwise)
+IMPORTANT: 
+- If the fraud involves CARD transactions (credit/debit card charges, pending card transactions), use "card fraud" instead
+- Only use "fraud - general" for non-card fraud like identity theft, check fraud, wire fraud, account takeover without card involvement
+- Also use when the MEMBER is the one committing fraud (filing false claims, making false accusations against employees when evidence contradicts their story)""",
 
     "HELOC": """
 1. Issues with a HELOC payments being in arrears
@@ -251,8 +289,12 @@ NOTE: Focus on WHY the member called. If they called about interest dispute but 
 NOTE: Use when time spent waiting/on phone is a significant part of the complaint.""",
 
     "misinformation given": """
-1. A MACU representative provides incorrect/WRONG information to a member, upon which the member then acts
-IMPORTANT: Only use when agent gave WRONG information. If information was simply not communicated, use "communication issue" instead.""",
+1. A MACU representative provides incorrect/WRONG information VERBALLY to a member, upon which the member then acts
+IMPORTANT: 
+- Only use when agent TOLD the member WRONG information (wrong date, wrong amount, wrong process)
+- If information was simply not communicated, use "communication issue" instead
+- If an agent entered wrong data into a system (wrong account number for a recall, wrong email on application), that is "processing error", NOT misinformation — the error was in DATA ENTRY, not in what the member was TOLD
+- Misinformation = told wrong info; Processing error = did wrong action""",
 
     "missed payment": """
 1. Payment was missed and member wants to know if MACU can work with them in some way
@@ -279,7 +321,10 @@ IMPORTANT: If member is calling to request a refund of previous fees due to fina
 IMPORTANT: 
 - Only use for actual PAYMENTS going to wrong place
 - Transfers are NOT payments (use "transfers" tag)
-- Balance showing incorrectly is NOT payment misapplied (use "balance dispute")""",
+- Balance showing incorrectly is NOT payment misapplied (use "balance dispute")
+- Check deposits are NOT payments — if a check deposit was processed incorrectly, use "check deposit" (and "processing error" if agent error)
+- Autopay set up in reverse or to the wrong account is a PROCESSING ERROR, not payment misapplied (the setup was wrong, not the payment itself)
+- An extra amount taken during a deposit is "check deposit" + "processing error", NOT payment misapplied""",
 
     "processing error": """
 1. A transaction was processed incorrectly BY A HUMAN AGENT
@@ -289,13 +334,18 @@ IMPORTANT:
 5. Loan booked to wrong account (even if loan was requested, wrong account = processing error)
 6. Cash deposit counted incorrectly by teller
 7. Product (insurance, loan relief) not cancelled when member requested cancellation
+8. Autopay set up incorrectly (e.g., reversed direction, wrong account, wrong amount)
+9. Agent entered incorrect data in a system (wrong account number for recall, wrong email on application, etc.)
+10. Payment processed through wrong account
 IMPORTANT: 
 - Only use when a HUMAN AGENT processed something incorrectly
 - ATM errors are NOT processing errors (use "atm")
 - IVR/phone system errors are NOT processing errors (use "interactive voice response (IVR)")
 - System working as designed is NOT processing error
 - Don't use if we don't know whether an error occurred
-- If member REQUESTED an action but it was done to WRONG account = processing error, NOT unauthorized action""",
+- If member REQUESTED an action but it was done to WRONG account = processing error, NOT unauthorized action
+- Autopay set up backwards or to wrong account = processing error (the SETUP was wrong)
+- Wrong data entered into system (recall info, application info) = processing error, NOT misinformation""",
 
     "refinance": """
 1. Member initiates a request to refinance a loan
@@ -367,12 +417,17 @@ NOTE: Transfers are different from payments. If money was transferred to wrong a
 2. Account converted without member's knowledge or consent (e.g., share type changed)
 3. Account changes made without proper notification or authorization
 4. Credit pull done without member's direct authorization (wife authorized but member didn't)
+5. Agent shared member's personal information with a third party without member's authorization
+6. Product/service (e.g., overdraft protection) enrolled or set up without member's knowledge or consent
+7. Mortgage deferment or other loan modification applied without member signing documents or consenting
 IMPORTANT: 
 - Actions permitted by loan agreement terms (like account offsets for past due loans) are NOT unauthorized, even if member is upset about them
 - Account conversions/changes without notification ARE unauthorized
 - If member REQUESTED an action but it was done to the WRONG account = "processing error", NOT unauthorized
 - If action was never requested at all = "unauthorized action"
-- Credit pull where member didn't personally authorize = unauthorized action""",
+- Credit pull where member didn't personally authorize = unauthorized action
+- Unauthorized disclosure of personal information to third parties = unauthorized action (NOT "agent behavior")
+- Setting up overdraft protection when member specifically said not to = unauthorized action""",
 
     "unresolved complaint": """
 1. A complaint has been pending resolution for long periods of time, spanning days or weeks without resolution requiring multiple call ins and interactions
@@ -420,6 +475,24 @@ NOTE: Use when a correction/adjustment needs to be made to fix a transaction or 
 3. SSA letter requirements for rep payee accounts
 4. Problems with representative payee arrangements
 NOTE: Representative payee accounts have specific documentation requirements (SSA letter).""",
+
+    "account offset": """
+1. Member's account is offset (funds moved from one account to cover a debt on another) and calls in about it
+2. Member disputes an account offset
+3. Member upset about an offset being applied to their account
+4. Call was triggered by an account offset being performed on the member's account
+NOTE: Use specifically when the complaint is triggered by an account offset. Offsets per loan agreement terms are permitted by MACU but are still disputable — pair with "transaction dispute" if member is disputing the offset.""",
+
+    "overdraft protection": """
+1. Member has concerns about being opted in or out of overdraft protection (ODP) without their knowledge or consent
+2. Member expected their card to decline transactions but overdraft protection was active
+3. Member disputes their enrollment in overdraft protection/privilege
+4. Issues with overdraft protection setup, enrollment, or opt-in/opt-out status
+IMPORTANT:
+- Use when the core issue is about ENROLLMENT in or STATUS of overdraft protection, NOT about the fees themselves
+- If member is complaining about overdraft FEES they were charged, use "overdraft fee"
+- If member never authorized ODP enrollment, also add "unauthorized action"
+- "overdraft fee" = about the FEE charged; "overdraft protection" = about the ENROLLMENT/OPT-IN status""",
 }
 
 
@@ -602,6 +675,77 @@ def get_confusion_guidance() -> str:
 ### Documentation for Account Opening
 - When specific documentation is required to open an account (SSA letter for rep payee, etc.) = add "documentation"
 - Missing required documents preventing account action = "documentation"
+
+### Documentation vs Adjustment for Statement Issues
+- If member wants their statement corrected because it shows fees that were refunded = "documentation" (the document is wrong)
+- If member wants a transaction adjusted/corrected = "adjustment"
+- Statement display issues = "documentation"; transaction corrections = "adjustment"
+
+### Payment Misapplied vs Check Deposit vs Processing Error
+- A check deposit processed incorrectly (wrong amount, extra money taken) = "check deposit" + "processing error"
+- A check deposit is NOT a payment — member depositing a check is "check deposit", NOT "payment misapplied"
+- Autopay set up in the wrong direction or to the wrong account = "processing error" + "autopay", NOT "payment misapplied"
+- "payment misapplied" requires an actual PAYMENT going to the wrong place, not a setup error
+
+### Agent Behavior vs Unauthorized Action
+- Agent was rude, gossiping, unprofessional in DEMEANOR = "agent behavior"
+- Agent shared member's personal information without authorization = "unauthorized action" (the harm is the unauthorized disclosure, not rudeness)
+- Agent actions that violate member privacy or authorization = "unauthorized action"
+
+### Card Quality vs Card Block — Unknown Cause Defaults to Card Block
+- Card has KNOWN physical defect (chip quit, tap stopped, strip worn) = "card quality"
+- Card not working but reason is UNKNOWN = "card block" (cannot assume physical defect without evidence)
+- Key: "card quality" requires explicit mention of physical malfunction
+
+### Overdraft Fee vs Overdraft Protection
+- Member upset about FEES from overdraft = "overdraft fee"
+- Member upset about being ENROLLED in overdraft protection without consent = "overdraft protection"
+- If ODP was set up when member explicitly said not to, add "unauthorized action"
+- If enrollment was unauthorized AND fees resulted = "overdraft protection" + "unauthorized action" + "overdraft fee"
+
+### Card Fraud vs Transaction Dispute — Reporting vs Disputing
+- Member REPORTING fraud on their card (identifying unauthorized charges) = "card fraud"
+- Member wanting to DISPUTE transactions (even fraud-related) but can't because they're pending = "transaction dispute"
+- Member disputing the OUTCOME of a fraud claim (claim denied) = "transaction dispute"
+- The distinction: reporting/identifying = card fraud; disputing process/outcome = transaction dispute
+
+### Member-Initiated Fraud
+- When evidence shows the MEMBER is committing fraud (false claim against employee, fabricated story contradicted by evidence) = "fraud - general"
+- This is NOT "unauthorized action" or "transaction dispute" — the member is the fraudster
+
+### Misinformation vs Processing Error — What Was Said vs What Was Done
+- Agent TOLD member wrong information = "misinformation given"
+- Agent ENTERED wrong data into system (wrong account for recall, wrong email on app) = "processing error"
+- Key question: Was the error in COMMUNICATION (told wrong info) or in DATA ENTRY (did wrong action)?
+
+### Card Block at ATMs
+- If card doesn't work specifically at ATMs, tag BOTH "card block" AND "atm"
+- The ATM tag captures the location; card block captures the card issue
+
+### Delivery — Must Involve Actual Transit
+- Only use "delivery" when an item was ACTUALLY SENT/MAILED
+- Title never printed or mailed (lien release issue) = "titles" only, NOT "delivery"
+- Application sent to wrong address = "application" + "delivery"
+- Item must have been in transit for delivery tag to apply
+
+### Account Access vs Card Block After Conversion
+- After account conversion, if card doesn't work = "card block" (card issue, not account access)
+- After account conversion, if member can't log in to online banking = "account access & security"
+- Focus on WHAT isn't working: card = card block; account login = account access
+
+### Check Deposit as Root Cause
+- When a check deposit triggers downstream issues (fraud flags, account restrictions) = include "check deposit" as a root cause tag
+- Tag the downstream effects too (e.g., "account access & security", "communication issue")
+
+### Account Offset
+- When member's complaint is triggered by an account offset = add "account offset"
+- If member is disputing the offset = add "transaction dispute" alongside "account offset"
+- Account offsets per loan terms are permitted but still disputable
+
+### Interest Dispute as Secondary Tag
+- When unauthorized action or payment issue causes interest to accrue = add "interest dispute"
+- Example: unauthorized deferment that caused 6k in interest = "unauthorized action" + "mortgage" + "interest dispute"
+- Example: can't pay full balance causing interest = "interest dispute" + "loan payment"
 """
 
 
