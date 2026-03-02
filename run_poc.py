@@ -35,11 +35,14 @@ def print_result(
     row_index: int,
     case_summary: str,
     result: Dict,
-    show_summary: bool = True
+    show_summary: bool = True,
+    case_number: str = ""
 ) -> None:
     """Pretty print a classification result."""
     print(f"\n{'='*60}")
     print(f"Row Index: {row_index}")
+    if case_number:
+        print(f"Case Number: {case_number}")
     
     if show_summary:
         print(f"Summary: {truncate_text(case_summary, 150)}")
@@ -63,6 +66,7 @@ def write_csv(results: List[Dict], output_path: str) -> None:
     """Write results to CSV file."""
     fieldnames = [
         'row_index',
+        'case_number',
         'case_summary',
         'pred_tag_1', 'pred_tag_2', 'pred_tag_3', 'pred_tag_4',
         'actual_issue_1', 'actual_issue_2', 'actual_issue_3', 'actual_issue_4',
@@ -77,6 +81,7 @@ def write_csv(results: List[Dict], output_path: str) -> None:
             tags = r['tags']
             row = {
                 'row_index': r['row_index'],
+                'case_number': r.get('case_number', ''),
                 'case_summary': r.get('case_summary', ''),
                 'pred_tag_1': tags[0] if len(tags) > 0 else '',
                 'pred_tag_2': tags[1] if len(tags) > 1 else '',
@@ -91,6 +96,15 @@ def write_csv(results: List[Dict], output_path: str) -> None:
             writer.writerow(row)
     
     print(f"\nResults written to: {output_path}")
+
+
+def get_case_number(row) -> str:
+    """Extract Case Number from a data row."""
+    import pandas as pd
+    value = row.get('Case Number', '')
+    if value is None or pd.isna(value):
+        return ''
+    return str(value)
 
 
 def get_actual_issues(row) -> Dict[str, str]:
@@ -139,11 +153,13 @@ def cmd_single(args) -> None:
         top_k=args.top_k
     )
     
-    print_result(args.row_index, case_summary, result)
+    case_number = get_case_number(row)
+    print_result(args.row_index, case_summary, result, case_number=case_number)
     
     # Write CSV if requested
     if args.out:
         result['row_index'] = args.row_index
+        result['case_number'] = case_number
         result['case_summary'] = str(case_summary) if case_summary else ''
         # Add actual issues from source data
         result.update(get_actual_issues(row))
@@ -213,13 +229,15 @@ def cmd_batch(args) -> None:
             top_k=args.top_k
         )
         
+        case_number = get_case_number(row)
         result['row_index'] = idx
+        result['case_number'] = case_number
         result['case_summary'] = str(case_summary) if case_summary else ''
         # Add actual issues from source data
         result.update(get_actual_issues(row))
         results.append(result)
         
-        print_result(idx, case_summary, result)
+        print_result(idx, case_summary, result, case_number=case_number)
         
         # Progress indicator
         print(f"\n[Progress: {i+1}/{total}]")

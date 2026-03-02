@@ -143,9 +143,17 @@ def process_single_file(
             needs_review_count += 1
             error_count += 1
         
+        # Extract Case Number
+        case_number = row.get("Case Number", "")
+        if case_number is None or pd.isna(case_number):
+            case_number = ""
+        else:
+            case_number = str(case_number)
+        
         # Build result row
         result_row = {
             "row_index": idx,
+            "case_number": case_number,
             "case_summary": str(case_summary) if case_summary else "",
             "pred_tag_1": result["tags"][0] if len(result["tags"]) > 0 else "",
             "pred_tag_2": result["tags"][1] if len(result["tags"]) > 1 else "",
