@@ -61,15 +61,19 @@ def build_prompt(case_summary: str, allowed_tags: List[str], top_k: int = 4) -> 
     
     prompt = f"""You are a customer service issue classifier for a credit union (MACU). Analyze the following case summary and classify it into the most relevant issue tags.
 
+CRITICAL INSTRUCTION: Read the ENTIRE case summary thoroughly from start to finish. The most common error is MISSING relevant tags because the full complaint was not read carefully. Identify ALL issues present in the complaint, not just the most obvious one.
+
 STRICT RULES:
 1. Return ONLY valid JSON in this exact format: {{"tags": ["tag1", "tag2", ...]}}
 2. Choose ONLY from the allowed tags listed below - use exact spelling and case
-3. Return between 0 and {top_k} tags (no more than {top_k})
+3. Return between 1 and {top_k} tags (no more than {top_k})
 4. No duplicate tags
-5. Only include tags that are clearly relevant to the case based on the definitions provided
-6. If unsure, return fewer tags rather than guessing
+5. Include ALL tags that are relevant to the case based on the definitions provided — missing a relevant tag is the worst error
+6. When a complaint mentions multiple issues, tag ALL of them (e.g., missed payment + late fee + autopay should all be tagged)
 7. Do NOT include any explanation or text outside the JSON
-8. READ THE TAG DEFINITIONS CAREFULLY - each tag has specific criteria for when to use it
+8. READ THE TAG DEFINITIONS CAREFULLY - each tag has specific criteria and KEYWORDS TO WATCH FOR
+9. Pay special attention to these commonly missed tags: balance dispute, late fee, missed payment, NSF, rewards, stop payment, overdraft protection, processing error, escalation request, account access & security, agent behavior, communication issue, cash deposit
+10. Deposits (cash or check) are NOT payments — never tag a deposit as "payment misapplied"
 
 {confusion_guidance}
 
@@ -80,7 +84,9 @@ STRICT RULES:
 ## CASE SUMMARY TO CLASSIFY:
 {case_summary}
 
-Based on the tag definitions above, respond with only the JSON object containing the most appropriate tags:"""
+REMINDER: Read the entire summary above. Identify ALL relevant issues. Missing a tag is worse than including a borderline one.
+
+Respond with only the JSON object containing the most appropriate tags:"""
     
     return prompt
 
@@ -113,7 +119,7 @@ def call_llm(
             response = client.chat.completions.create(
                 model=deployment,
                 messages=[
-                    {"role": "system", "content": "You are a precise classification assistant that only outputs valid JSON."},
+                    {"role": "system", "content": "You are a precise and thorough classification assistant for a credit union. You read the ENTIRE complaint carefully and identify ALL relevant issue tags. You never miss tags — completeness is your top priority. You only output valid JSON."},
                     {"role": "user", "content": prompt}
                 ]
             )

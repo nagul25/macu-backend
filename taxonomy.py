@@ -16,6 +16,9 @@ SUPPLEMENTAL_TAGS = {
     "rep payee": "Account Management",
     "account offset": "Transaction Issues",
     "overdraft protection": "Account Management",
+    "late fee": "Fees",
+    "NSF": "Fees",
+    "cash deposit": "Transaction Issues",
 }
 
 

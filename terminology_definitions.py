@@ -16,16 +16,27 @@ TAG_DEFINITIONS = {
 6. Issues regarding accessing accounts post transfer of accounts to Sunward
 7. Member cannot access online portal due to moving/relocation (geographic restrictions)
 8. Member no longer a resident in original state and cannot use state-specific portal
+9. Unauthorized access to an account — someone not on the account gained access
+10. Card issued on the wrong account, sending account information to the wrong member, or providing account information to someone not authorized
+11. Any instance where unauthorized access to an account occurs in any form
+KEYWORDS TO WATCH FOR: "unauthorized access", "someone accessed", "wrong member", "account information sent to", "not on the account", "locked out", "can't access", "account security"
 NOTE: Card fraud/stolen cards do NOT qualify as account access issues - a stolen card does not provide access to the member's actual account.
 IMPORTANT:
+- This tag is commonly MISSED — look for any mention of unauthorized access, account information shared with wrong person, or account security breaches
 - If member's card doesn't work after an account conversion, the primary issue is "card block" (not account access) — unless they also can't access the account itself
 - If member is calling about being yelled at by an agent, that is "agent behavior", NOT account access
 - Only use this tag when the member has trouble accessing THEIR ACCOUNT (online, in-branch, locked out), not when a specific product (card, loan) has an issue""",
 
     "agent behavior": """
 1. Any member complaint that includes a lack of proper decorum from the agent (rudeness, unprofessional conduct, inappropriate comments)
+2. Agent is seen as being rude, dismissive, disinterested, unresponsive, or unattentive to the member
+3. Agent is acting unscrupulously — such as pressuring members to open a certain account, apply for a certain loan, or otherwise pushing them towards an action against their wishes
+4. Agent gossips about members or other employees
+5. Agent provides deliberately poor service or is intentionally unhelpful
+KEYWORDS TO WATCH FOR: "rude", "unprofessional", "dismissive", "disinterested", "unresponsive", "pressured", "pushed me to", "agent was", "hung up on me", "wouldn't help", "attitude"
 CRITICAL RULES:
-- ONLY use when the AGENT behaves improperly in DEMEANOR (agent was rude, agent hung up inappropriately, agent was unprofessional, agent gossiped)
+- This tag is commonly MISSED — look for any indication of agent misconduct in demeanor OR unscrupulous conduct
+- ONLY use when the AGENT behaves improperly in DEMEANOR or CONDUCT (agent was rude, agent hung up inappropriately, agent was unprofessional, agent gossiped, agent pressured member)
 - If MEMBER is rude, abusive, or uses profanity, that is NOT agent behavior - the agent did nothing wrong
 - If case mentions "member was using profanity" or "member said [insult]", do NOT tag agent behavior
 - If agent hung up because MEMBER was abusive, that is NOT agent behavior (agent was right to disconnect)
@@ -66,7 +77,15 @@ IMPORTANT:
     "balance dispute": """
 1. Member has concern that balance in their account is incorrect
 2. Member is disputing the balance shown after a payment was made
-NOTE: Use when member believes the BALANCE is wrong, not when a payment went to the wrong place (that's payment misapplied).""",
+3. Member believes the balance should be different than what they are being told — checking, savings, money market, loan, or any account
+4. Member disagrees with the stated balance on any financial product
+5. After a deposit (cash or check), member believes the credited amount is wrong
+KEYWORDS TO WATCH FOR: "balance is wrong", "balance should be", "incorrect balance", "doesn't match", "balance dispute", "account shows wrong amount"
+NOTE: Use when member believes the BALANCE is wrong, not when a payment went to the wrong place (that's payment misapplied).
+IMPORTANT:
+- This is one of the most commonly MISSED tags — always check if the member is disagreeing with a stated balance
+- If a cash deposit amount doesn't match what member expected, include "balance dispute"
+- If member says "my balance should be X but it shows Y", this IS a balance dispute""",
 
     "balance inquiry": """
 1. Member is inquiring about any account balance available
@@ -138,7 +157,16 @@ IMPORTANT:
 3. Communication from MACU to the member omits or otherwise obfuscates important information
 4. Communication to the member is confusing or conveys a different message to the member than intended
 5. Member was NOT TOLD about something (loan terms, fees, account changes, etc.)
-NOTE: Use when information was NOT communicated or was unclear. If WRONG information was given, use "misinformation given" instead.""",
+6. Dropped calls, phone tag, or difficulty reaching the right person/department
+7. Communication is very difficult due to phone issues, language barriers, or other communication obstacles
+8. Member left messages that were never returned
+9. Promises to call back that were not kept
+KEYWORDS TO WATCH FOR: "not told", "didn't communicate", "no one called back", "couldn't reach", "dropped call", "phone tag", "didn't inform", "wasn't aware", "never notified", "no communication"
+NOTE: Use when information was NOT communicated or was unclear. If WRONG information was given, use "misinformation given" instead.
+IMPORTANT:
+- This tag is commonly MISSED — always check if information was not communicated, was unclear, or if communication was very difficult
+- Dropped calls and phone tag are communication issues
+- Lack of follow-up or returned calls is a communication issue""",
 
     "loan consolidation": """
 1. An issue arises during the loan consolidation process""",
@@ -197,11 +225,14 @@ IMPORTANT:
 2. Member asks to speak to a supervisor/manager/lead
 3. Call became an escalation call
 4. Member was transferred to escalations/helpdesk
+5. MACU employee escalates a call to assist the member (employee-initiated escalation)
+6. Member demands to speak with someone higher up or with more authority
+KEYWORDS TO WATCH FOR: "escalate", "supervisor", "manager", "speak to a lead", "transferred to", "wants to escalate", "escalation"
 NOTE: 
-- Always include this tag when member EXPLICITLY asks to speak to a supervisor/manager or when call is transferred to escalations
+- This tag is commonly MISSED — always check if the member requested escalation OR if the call was escalated by an employee
+- There are TWO scenarios to watch for: (1) member ASKS for escalation, or (2) MACU employee escalates the call
 - Staff internally consulting other teams (fraud, payments) is NOT an escalation request
-- Member disconnecting in frustration is NOT an escalation request
-- Must be member-initiated request for manager/supervisor""",
+- Member disconnecting in frustration is NOT an escalation request""",
 
     "fee disclosure": """
 1. Member has a question regarding fees that are linked to an account, not understanding why they were charged or their origin
@@ -299,7 +330,16 @@ IMPORTANT:
     "missed payment": """
 1. Payment was missed and member wants to know if MACU can work with them in some way
 2. Payment was missed due to slow processing times on MACU's end
-3. Payment missed due to other reasons, such as UX or inability to access account""",
+3. Payment missed due to other reasons, such as UX or inability to access account
+4. Member failed to make a required payment on time
+5. Autopay failed to pull a payment, resulting in a missed payment
+6. Member was unaware of a payment due date and missed the payment
+KEYWORDS TO WATCH FOR: "missed payment", "didn't pay", "failed to pay", "payment was missed", "didn't make payment", "payment not made", "past due"
+IMPORTANT:
+- This tag is commonly MISSED — always check if the complaint involves a payment that was not made on time
+- If autopay failure caused the missed payment, tag BOTH "missed payment" AND "autopay"
+- If a late fee resulted from the missed payment, tag BOTH "missed payment" AND "late fee"
+- Primary causes: autopay issues, member failing to make payment when required, system issues preventing payment""",
 
     "mobile deposit": """
 1. Issues with mobile deposits that range from deposit holds, technical issues, missing funds, and more
@@ -360,7 +400,15 @@ IMPORTANT:
 NOTE: Use this when member is requesting refund/help with fees, even if overdraft fees are involved - focus on the refund request itself.""",
 
     "rewards": """
-1. Member upset with changes in rewards offered""",
+1. Member upset with changes in rewards offered
+2. Member did not receive a promotional bonus or reward that was promised
+3. Member has issues with points, cashback, or other reward program benefits
+4. Member is complaining about a marketing promotion that was not honored
+5. Member expected a reward or bonus for opening an account, signing up for a product, or meeting certain criteria
+KEYWORDS TO WATCH FOR: "promo", "promotion", "reward", "points", "bonus", "cashback", "incentive", "offer"
+IMPORTANT:
+- This tag is commonly MISSED — look for any mention of promotions, rewards, points, or bonuses
+- Even if the complaint is primarily about something else, if a missed reward/promo is part of the issue, include this tag""",
 
     "skip payment": """
 1. The member wants to initiate a skip payment
@@ -371,7 +419,16 @@ NOTE: Use this when member is requesting refund/help with fees, even if overdraf
 NOTE: When member is behind on payments and seeking extension, tag BOTH skip payment AND "loan payment".""",
 
     "stop payment": """
-1. Member calls in because of an issue that arises with a stop payment request or to initiate a stop payment request""",
+1. Member calls in because of an issue that arises with a stop payment request or to initiate a stop payment request
+2. Member wants to stop a check payment that has been initiated but not yet applied
+3. Member placed a stop payment but the payment still went through
+4. Issues with stop payment fees or the stop payment process
+5. Member requests to cancel or halt a pending payment (typically a check payment)
+KEYWORDS TO WATCH FOR: "stop payment", "stop the check", "cancel payment", "halt payment", "stop a check", "stop the payment"
+IMPORTANT:
+- This tag is commonly MISSED — always check if the member is requesting to stop or cancel a pending payment
+- A stop payment is specifically about a payment that has been INITIATED but NOT YET APPLIED
+- If the payment already went through, this is not a stop payment issue (may be "transaction dispute" or "refund")""",
 
     "technical issue": """
 1. Member has technical issues with online banking or the mobile app
@@ -493,6 +550,46 @@ IMPORTANT:
 - If member is complaining about overdraft FEES they were charged, use "overdraft fee"
 - If member never authorized ODP enrollment, also add "unauthorized action"
 - "overdraft fee" = about the FEE charged; "overdraft protection" = about the ENROLLMENT/OPT-IN status""",
+
+    "late fee": """
+1. Member has been assessed a late fee for any reason, primarily late and/or missed payments
+2. Member is disputing or complaining about a late fee charged to their account
+3. Member is upset that a late fee was assessed when they believe the payment was on time
+4. Member is calling about late fees resulting from autopay failure or processing delays
+5. Late fee assessed after a skip payment or deferment period
+KEYWORDS TO WATCH FOR: "late fee", "late charge", "late penalty", "charged late", "fee for being late", "assessed a fee"
+IMPORTANT:
+- Use when a late fee is a component of the complaint, even if the member is also complaining about a missed payment or autopay issue
+- If the member also missed a payment, tag BOTH "late fee" AND "missed payment"
+- If the late fee resulted from an autopay failure, tag BOTH "late fee" AND "autopay"
+- If member is requesting a refund of the late fee, also add "refund\"""",
+
+    "NSF": """
+1. Member has been assessed an NSF (non-sufficient funds) fee
+2. A payment or transaction was rejected because the member did not have enough funds in the account
+3. Member is disputing an NSF fee or complaining about the fee amount
+4. Member is calling because a check or payment bounced due to insufficient funds
+5. Member had a transaction declined and was charged an NSF fee
+KEYWORDS TO WATCH FOR: "NSF", "non-sufficient funds", "insufficient funds", "bounced check", "returned item", "not enough funds", "rejected payment"
+IMPORTANT:
+- NSF is DIFFERENT from overdraft: NSF = payment is REJECTED and fee is charged; overdraft = payment goes through but account goes negative
+- If the payment was rejected AND the member was charged a fee, use "NSF"
+- If the payment went through despite insufficient funds (overdraft), use "overdraft fee" instead
+- If member is requesting a refund of the NSF fee, also add "refund\"""",
+
+    "cash deposit": """
+1. Member is depositing cash into a personal or business account (checking, savings, CD, etc.)
+2. Cash deposit was placed into the wrong account
+3. Cash was counted incorrectly by teller during deposit
+4. Issues with the amount credited from a cash deposit
+5. Cash deposit not reflecting correctly in account balance
+KEYWORDS TO WATCH FOR: "cash deposit", "deposited cash", "cash into account", "teller deposit"
+IMPORTANT:
+- A cash deposit is NOT a payment — do NOT tag as "payment misapplied"
+- If cash was deposited into the wrong account, use "cash deposit" + "processing error" (the teller made the error)
+- If the teller counted the cash incorrectly, use "cash deposit" + "processing error"
+- If the cash deposit amount doesn't match what member expected, use "cash deposit" + "balance dispute"
+- "payment misapplied" is ONLY for actual PAYMENTS (loan payments, credit card payments) going to the wrong place, NOT deposits""",
 }
 
 
@@ -526,10 +623,17 @@ def get_confusion_guidance() -> str:
     return """
 ## CRITICAL CLASSIFICATION RULES - Read carefully before classifying:
 
-### Focus on PRIMARY Complaint
-- Tag based on WHY the member called, not everything mentioned in the case
+### MOST IMPORTANT: Do NOT Miss Relevant Tags
+- The #1 error is MISSING tags — returning fewer tags than are relevant to the complaint
+- Read the ENTIRE complaint carefully and identify ALL issues present, not just the most obvious one
+- If a complaint mentions multiple issues (e.g., missed payment AND late fee AND autopay failure), tag ALL of them
+- When in doubt about whether a tag applies, lean towards INCLUDING it — missing a relevant tag is worse than including a borderline one
+- Pay special attention to these commonly missed tags: balance dispute, late fee, missed payment, NSF, rewards, stop payment, overdraft protection, processing error, escalation request, account access & security, agent behavior, communication issue, cash deposit
+
+### Focus on PRIMARY Complaint (but include secondary issues too)
+- Tag based on WHY the member called, but also include secondary issues mentioned in the complaint
 - If member called to pay a loan but couldn't verify identity, the issue is "identity verification", not "loan payment"
-- If member mentions escalation while complaining about fees, tag the fee issue as primary
+- If member mentions escalation while complaining about fees, tag BOTH the fee issue AND "escalation request"
 
 ### Card Block vs Card Quality
 - "card block": Card is DECLINED or won't work, but card is PHYSICALLY FINE (system blocks, authorization issues)
@@ -637,10 +741,15 @@ def get_confusion_guidance() -> str:
 - Issues with loan relief charges or cancellation = "insurance", NOT "auto loan"
 - If loan relief should have been cancelled but wasn't = add "processing error"
 
-### Cash Deposit vs Check Deposit
-- "check deposit" is ONLY for checks
-- Cash deposits that have issues = "balance dispute" if amount is wrong
-- Incorrect cash deposit amount by teller = "balance dispute" + "processing error"
+### Cash Deposit vs Check Deposit vs Payment Misapplied
+- "cash deposit" = member depositing CASH into an account — this is NOT a payment
+- "check deposit" = member depositing a CHECK into an account — this is NOT a payment
+- "payment misapplied" = an actual PAYMENT (loan payment, credit card payment) going to the wrong place
+- CRITICAL: Deposits (cash or check) are NOT payments. Do NOT tag deposits as "payment misapplied"
+- Cash deposit into wrong account = "cash deposit" + "processing error"
+- Cash counted incorrectly by teller = "cash deposit" + "processing error"
+- Check deposit processed incorrectly = "check deposit" + "processing error"
+- If a deposit also involves incorrect balance = add "balance dispute"
 
 ### Auto Loan Setup Through Dealer
 - When dealer fails to communicate important loan info (due date, account info) = add "communication issue" AND "auto loan"
@@ -746,6 +855,39 @@ def get_confusion_guidance() -> str:
 - When unauthorized action or payment issue causes interest to accrue = add "interest dispute"
 - Example: unauthorized deferment that caused 6k in interest = "unauthorized action" + "mortgage" + "interest dispute"
 - Example: can't pay full balance causing interest = "interest dispute" + "loan payment"
+
+### Late Fee — Commonly Missed
+- When member is assessed a late fee, ALWAYS include "late fee" as a tag
+- Late fees often co-occur with "missed payment" — tag BOTH when a missed payment led to a late fee
+- Late fees from autopay failure = "late fee" + "autopay" (+ "missed payment" if applicable)
+- If member wants the late fee refunded, also add "refund"
+
+### NSF (Non-Sufficient Funds) — Commonly Missed
+- NSF = payment REJECTED due to insufficient funds + fee charged
+- Overdraft = payment goes THROUGH despite insufficient funds + fee charged
+- "bounced check" or "returned item" = NSF
+- If member wants the NSF fee refunded, also add "refund"
+
+### Missed Payment — Commonly Missed
+- Any time a payment was not made when it should have been = "missed payment"
+- Autopay failure causing missed payment = "missed payment" + "autopay"
+- Missed payment causing late fee = "missed payment" + "late fee"
+
+### Processing Error vs Payment Misapplied — Critical Distinction
+- Processing error is about a HUMAN AGENT making an error in processing
+- When a deposit (cash or check) is processed incorrectly, use "processing error" + the deposit type tag, NOT "payment misapplied"
+- "payment misapplied" requires an actual PAYMENT going to the wrong place — deposits are NOT payments
+- When in doubt between processing error and payment misapplied with a deposit, choose "processing error"
+
+### Escalation Request — Two Scenarios
+- Scenario 1: MEMBER asks to speak to supervisor/manager = "escalation request"
+- Scenario 2: MACU EMPLOYEE escalates the call = "escalation request"
+- Both scenarios should be tagged — don't miss employee-initiated escalations
+
+### Balance Dispute — Commonly Missed
+- Any time a member disagrees with a stated balance on ANY account = "balance dispute"
+- This applies to checking, savings, money market, loan, credit card — any financial product
+- If deposit amount doesn't match what was expected = include "balance dispute"
 """
 
 
